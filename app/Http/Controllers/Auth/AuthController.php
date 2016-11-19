@@ -51,7 +51,7 @@ class AuthController extends Controller{
             'username' => 'required|max:20',
             'name' => 'required|max:25|alpha',
             'lastname' => 'max:25|alpha',
-            //'birthday' => 'required|date',   
+            'birthday' => 'required|date',   
             'email' => 'required|email|max:25|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -71,7 +71,7 @@ class AuthController extends Controller{
             'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            //'birthday' => $data['birthday'],
+            'birthday' => $data['birthday'],
         ]);
     }
 }

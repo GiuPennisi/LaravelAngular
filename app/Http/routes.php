@@ -23,4 +23,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::post('/crearmensaje','MessageController@create');
 
+Route::post('/getemail','MessageController@viewMails');
+
 Route::get('/folder.json','FolderController@index');

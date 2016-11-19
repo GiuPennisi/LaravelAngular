@@ -89,15 +89,32 @@ class MessageController extends Controller
        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function viewMails($id){
+        if (Auth::check()){
+            $user=User::find($id);
+            if ($user){
+                $messages=Message::where("user_id",$id);
+                if ($messages){
+                    $inbox=Folder::where("folderName","Inbox");
+                    if ($inbox){
+                        foreach ($messages as $message){
+                            if ($message->folder_id == $inbox[0]->id){
+                                $collection = collect($message);    
+                            }
+                        }
+                    }else{
+                        return response()->json(["Status" => "inboxFolderNotFound"],204);
+                    }
+                }else{
+                    return response()->json(["Status" => "No Content"],204);
+                }
+            }else{
+                return response()->json(["Status" => "userNotFound"],204);
+            }
+        }else{
+            return response()->json(["Status" => "Unauthorized"],401);
+        }
+
     }
 
     /**

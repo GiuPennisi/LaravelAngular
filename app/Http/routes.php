@@ -23,4 +23,5 @@ Route::group(['prefix' => 'api'], function (){
     Route::post('/crearmensaje','MessageController@create');
     Route::post('/getemail','MessageController@viewMails');
     Route::get('/folder.json','FolderController@index');
+    Route::post('/signup','RegisterController@signup');
 });

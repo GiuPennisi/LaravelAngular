@@ -3,12 +3,13 @@ angular
 .factory('emailService', [
   '$log',
   '$http',
+  '$auth',
   emailService,
 ]);
 
-function emailService($log, $http) {
+function emailService($log, $http, $auth) {
   function logIn(userInfo) {
-    return $http.post('api/login/' + userInfo);
+    return $auth.login(userInfo);
   }
 
   function logOut() {
@@ -24,7 +25,7 @@ function emailService($log, $http) {
   }
 
   function register(userInfo) {
-    return $http.post('api/register/' + userInfo);
+    return $http({ method: "POST", url: 'api/signup', data: userInfo, cache: false });
   }
 
   const service = {

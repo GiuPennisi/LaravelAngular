@@ -14,7 +14,7 @@
               <label for="userName">Nombre de Usuario</label>
               <input type="register" placeholder="Enter user name" class="form-control" name="userName" ng-model="register.userInfo.username" required >
               <div class="help-block text-left" ng-messages="registerForm.userName.$error" ng-if="registerForm.userName.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
@@ -22,7 +22,7 @@
               <label for="password">Contraseña</label>
               <input type="password" placeholder="Enter user name" class="form-control" name="password" ng-model="register.userInfo.password" required >
               <div class="help-block text-left" ng-messages="registerForm.password.$error" ng-if="registerForm.password.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
@@ -30,7 +30,7 @@
               <label for="name">Name</label>
               <input type="register" placeholder="Enter name" class="form-control" name="name" ng-model="register.userInfo.name" required >
               <div class="help-block text-left" ng-messages="registerForm.name.$error" ng-if="registerForm.name.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
@@ -38,7 +38,7 @@
               <label for="lastName">Last Name</label>
               <input type="register" placeholder="Enter last name" class="form-control" name="lastName" ng-model="register.userInfo.lastname" required >
               <div class="help-block text-left" ng-messages="registerForm.lastName.$error" ng-if="registerForm.lastName.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
@@ -47,30 +47,30 @@
               <label for="email">Email</label>
               <input type="email" placeholder="Enter email" class="form-control" name="email" ng-model="register.userInfo.email" required >
               <div class="help-block text-left" ng-messages="registerForm.email.$error" ng-if="registerForm.email.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
           <div class="form-group" ng-class="{ 'has-error': registerForm.city.$touched && registerForm.city.$invalid }">
               <label for="city">Ciudad</label>
-              <input type="register" placeholder="Enter city" class="form-control" name="city" ng-model="register.userInfo.city" required >
+              <input type="register" placeholder="Enter city" class="form-control" name="city" ng-model="register.userInfo.city_id" required >
               <div class="help-block text-left" ng-messages="registerForm.city.$error" ng-if="registerForm.city.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
           <div class="form-group" ng-class="{ 'has-error': registerForm.birth.$touched && registerForm.birth.$invalid }">
               <label for="birth">Fecha de nacimiento</label>
-              <input type="date" placeholder="Enter birth date" class="form-control" name="birth" ng-model="register.userInfo.birthdate" required >
+              <input type="date" placeholder="Enter birth date" class="form-control" name="birth" ng-model="register.userInfo.birthday" required >
               <div class="help-block text-left" ng-messages="registerForm.birth.$error" ng-if="registerForm.birth.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
           <div class="form-group">
             <div class="row">
               <div class="col-md-6 col-sm-12 col-xs-12">
-                <button ng-disabled="registerForm.$invalid" type="submit" ng-click="register.goTo()">Sign In</button>
+                <button ng-disabled="registerForm.$invalid" type="submit" ng-click="register.register()">Sign In</button>
               </div>
               <div class="col-md-6 col-sm-12 col-xs-12 forgot-pass">
                 <a href ng-click="">forgot password ?</a>
@@ -79,7 +79,7 @@
           </div>
 
           <div class="help-block text-left" ng-messages="registerForm.rememberMe.$error" ng-if="registerForm.rememberMe.$touched">
-            <div ng-messages-include="/email/views/login-messages.html"></div>
+            <div ng-messages-include="scripts/email/views/login-messages.html"></div>
           </div>
 
         </form>

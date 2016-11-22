@@ -10,7 +10,7 @@
               <label for="to">To</label>
               <input type="email" placeholder="Enter email" class="form-control" name="to" ng-model="sendMessage.email.destinatario_email" required >
               <div class="help-block text-left" ng-messages="sendMessageForm.to.$error" ng-if="sendMessageForm.to.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
@@ -18,7 +18,7 @@
               <label for="subject">Subject</label>
               <input type="subject" placeholder="Enter subject" class="form-control" name="subject" ng-model="sendMessage.email.msgSubject" required >
               <div class="help-block text-left" ng-messages="sendMessageForm.subject.$error" ng-if="sendMessageForm.subject.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 
@@ -26,7 +26,7 @@
               <label for="message">Message</label>
               <textarea type="textArea" placeholder="Enter name" class="mt10 form-control" name="message" ng-model="sendMessage.email.msgBody" required ></textarea>
               <div class="help-block text-left" ng-messages="sendMessageForm.message.$error" ng-if="sendMessageForm.message.$touched">
-                  <div ng-messages-include="/email/views/login-messages.html"></div>
+                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
               </div>
 	        </div>
 

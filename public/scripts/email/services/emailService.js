@@ -8,23 +8,23 @@ angular
 
 function emailService($log, $http) {
   function logIn(userInfo) {
-    return $http.post('localhost:8080/login/' + userInfo);
+    return $http.post('api/login/' + userInfo);
   }
 
   function logOut() {
-    return $http.get('localhost:8080/logout');
+    return $http.get('api/logout');
   }
 
   function sendEmail(email) {
-    return $http.post('localhost:8080/crearmensaje/' + email);
+    return $http.post('api/crearmensaje/' + email);
   }
 
   function getEmails() {
-    return $http.post('localhost:8080/getemail');
+    return $http.post('api/getemail');
   }
 
   function register(userInfo) {
-    return $http.post('localhost:8080/register/' + userInfo);
+    return $http.post('api/register/' + userInfo);
   }
 
   const service = {

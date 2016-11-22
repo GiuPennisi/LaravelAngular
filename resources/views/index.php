@@ -5,15 +5,15 @@
     <title>Custom Page</title>
 
     <!-- main library files -->
-    <script src="scripts/js/vendor/angular.js"></script>
+    <script src="scripts/node_modules/angular/angular.min.js"></script>
     <script src="scripts/js/vendor/angular-route.js"></script>
     <script src="scripts/js/vendor/angular-messages.js"></script>
     <script src="scripts/js/vendor/jquery.js"></script>
     <script src="scripts/js/vendor/boostrap.min.js"></script>
     <script src="scripts/js/vendor/ui-bootstrap-tpls-1.3.2.min.js"></script>
     <script src="scripts/js/vendor/jQuery-viewport-checker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+    <script src="scripts/node_modules/satellizer/dist/satellizer.min.js"></script>
+    <script src="scripts/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <!-- main style files -->
     <link rel="stylesheet" href="scripts/style/css/bootstrap-theme.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
@@ -44,7 +44,6 @@
     <script src="scripts/email/factories/sharedData.js"></script>
 
     <!-- Angular route file -->
-    <script src="scripts/app.route.js"></script>
   </head>
   <body>
     <div ui-view class="content"></div>

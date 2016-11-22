@@ -12,18 +12,33 @@
 
             // Redirect to the auth state if any other states
             // are requested other than users
-            $urlRouterProvider.otherwise('/auth');
+            $urlRouterProvider.otherwise('/login');
             
             $stateProvider
-                .state('auth', {
-                    url: '/auth',
+                .state('login', {
+                    url: '/login',
                     templateUrl: 'scripts/email/views/login.html',
                     controller: 'loginController'
                 })
-                .state('email', {
-                    url: '/email',
+                .state('main', {
+                    url: '/',
                     templateUrl: 'scripts/email/views/email-main.html',
                     controller: 'personalEmailController'
-                });
+                })
+                .state('email',{
+                     url: '/email',
+                    templateUrl: "scripts/email/views/personal-email.html",
+                    controller: "personalEmailController",
+                })
+                .state('register',{
+                    url: '/register',
+                    templateUrl: "scripts/email/views/register.html",
+                    controller: "registerController",
+                })
+                .state('sendMessage',{
+                    url: '/sendMessage',
+                    templateUrl: "scripts/email/views/send-message.html",
+                    controller: "sendMessageController",
+                })
         });
 })();

@@ -11,10 +11,9 @@ angular
     $location.url('');
   };
   login.logIn = function () {
-    emailService.logIn(login.userInfo);
     $auth.login(login.userInfo).then(function(data) {
       // If login is successful, redirect to the users state
-      $state.go('email', {});
+      $state.go('main', {});
     });
   };
   login.test="hola";

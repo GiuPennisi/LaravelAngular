@@ -1,0 +1,20 @@
+<div class="col-md-10">
+<ul class="content-box">
+  <li ng-click="content.showEmail(email)" class="pt10 pb10 email-main-content" ng-repeat="email in content.emails">
+    <div class="row email">
+      <div class="col-lg-1">
+        <input class="check" type="checkbox" aria-label="...">
+      </div>
+      <div class="col-lg-1">
+        <span class="from">{{email.from}}</span>
+      </div>
+      <div class="col-lg-8">
+        <span class="description">{{email.description}}</span>
+      </div>
+      <div class="col-lg-2">
+        <span class="date">{{email.date}}</span>
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+  </li>
+</ul>
+</div>

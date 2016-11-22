@@ -12,17 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::auth();
-
-Route::get('/getID.json','UserController@getLoginID');
-
-Route::get('/home', 'HomeController@index');
-
-Route::post('/crearmensaje','MessageController@create');
-
-Route::post('/getemail','MessageController@viewMails');
-
-Route::get('/folder.json','FolderController@index');
+Route::group(['prefix' => 'api'], function (){
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::get('/getID.json','UserController@getLoginID');
+    Route::get('/home', 'HomeController@index');
+    Route::post('/crearmensaje','MessageController@create');
+    Route::post('/getemail','MessageController@viewMails');
+    Route::get('/folder.json','FolderController@index');
+});

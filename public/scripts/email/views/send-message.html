@@ -1,0 +1,47 @@
+<div id="personal-info">
+<div class="col-md-6 col-md-offset-3 form-box text-center">
+    <div class="page-header">
+          <h4>Send Email</h4>
+    </div>
+    <div class="page-content">
+        <form name="sendMessageForm">
+
+          <div class="form-group" ng-class="{ 'has-error': sendMessageForm.to.$touched && sendMessageForm.to.$invalid }">
+              <label for="to">To</label>
+              <input type="email" placeholder="Enter email" class="form-control" name="to" ng-model="sendMessage.email.destinatario_email" required >
+              <div class="help-block text-left" ng-messages="sendMessageForm.to.$error" ng-if="sendMessageForm.to.$touched">
+                  <div ng-messages-include="/email/views/login-messages.html"></div>
+              </div>
+	        </div>
+
+          <div class="form-group" ng-class="{ 'has-error': sendMessageForm.subject.$touched && sendMessageForm.subject.$invalid }">
+              <label for="subject">Subject</label>
+              <input type="subject" placeholder="Enter subject" class="form-control" name="subject" ng-model="sendMessage.email.msgSubject" required >
+              <div class="help-block text-left" ng-messages="sendMessageForm.subject.$error" ng-if="sendMessageForm.subject.$touched">
+                  <div ng-messages-include="/email/views/login-messages.html"></div>
+              </div>
+	        </div>
+
+          <div class="form-group" ng-class="{ 'has-error': sendMessageForm.message.$touched && sendMessageForm.message.$invalid }">
+              <label for="message">Message</label>
+              <textarea type="textArea" placeholder="Enter name" class="mt10 form-control" name="message" ng-model="sendMessage.email.msgBody" required ></textarea>
+              <div class="help-block text-left" ng-messages="sendMessageForm.message.$error" ng-if="sendMessageForm.message.$touched">
+                  <div ng-messages-include="/email/views/login-messages.html"></div>
+              </div>
+	        </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <button ng-disabled="sendMessageForm.$invalid" type="submit" ng-click="sendMessage.goTo()">Send</button>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12 forgot-pass">
+                <a href ng-click="sendMessage.goTo()">Cancel</a>
+              </div>
+            </div>
+          </div>
+
+        </form>
+    </div>
+</div>
+</div>

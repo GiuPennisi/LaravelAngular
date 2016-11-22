@@ -1,0 +1,115 @@
+@import 'colors';
+#personal-info {
+  .form-box {
+    margin-top: 60px;
+    overflow: hidden;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.6);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    text-align: left;
+    color: white;
+  }
+  .page-header {
+    margin-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 15px;
+  }
+  .brand {
+    img {
+      width: 35px;
+    }
+    span {
+      font-size: 24px;
+      font-weight: 300;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  }
+  h4 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  input {
+      background-color: transparent;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      box-shadow: none;
+      color:white;
+
+      &.error {
+          border-color: $brand-danger;
+      }
+
+      &.disabled {
+          pointer-events: none;
+          cursor: default;
+          color: $little-gray;
+      }
+
+      &::-webkit-input-placeholder{
+        font-size: 16px;
+      }
+  }
+  .forgot-pass {
+    text-align: right;
+    a{
+      color: $light-blue;
+      text-decoration: none;
+
+      &:hover, &:focus {
+        color: $dark-blue;
+      }
+    }
+  }
+  button {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    color: white;
+    padding: 6px 70px;
+
+    &:hover {
+      color: $gray;
+      border-color: $gray;
+    }
+
+    &[disabled] {
+      border-color: $little-gray;
+      color: $little-gray;
+    }
+  }
+  .page-content {
+      .form-group {
+          padding-bottom: 0px;
+
+          &:last-child {
+            padding-bottom: 0px;
+          }
+      }
+  }
+  @media(max-width: 991px) {
+    .form-group {
+      text-align: center;
+      .forgot-pass {
+        text-align: center;
+      }
+    }
+  }
+}
+@media(max-width: 991px) {
+    #personal-info {
+      height: 100%;
+      .form-box {
+        height: 100%;
+        margin-top: 0px;
+      }
+    }
+}

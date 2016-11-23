@@ -9,7 +9,10 @@
         "laravel/framework": "5.2.*",
         "tymon/jwt-auth": "^0.5.9",
         "doctrine/dbal": "^2.5",
-        "laravel-doctrine/migrations": "1.0.*"
+        "laravel-doctrine/migrations": "1.0.*",
+        "mmerian/doctrine-timestamp": "dev-master",
+        "gedmo/doctrine-extensions": "^2.4",
+        "laravel-doctrine/orm": "1.2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

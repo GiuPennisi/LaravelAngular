@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::group(['prefix' => 'api'], function (){
+Route::group(['prefix' => 'api'], function () {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
     Route::get('/getID.json','UserController@getLoginID');
@@ -25,3 +25,4 @@ Route::group(['prefix' => 'api'], function (){
     Route::get('/folder.json','FolderController@index');
     Route::post('/signup','RegisterController@signup');
 });
+    

@@ -8,7 +8,8 @@ use App\Http\Requests;
 use Auth;
 use App\User;
 use App\Folder;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuthExceptions\JWTException;
 class FolderController extends Controller
 {
     /**

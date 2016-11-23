@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Doctrine\DBAL\Types\Type;
 
 class CreateUsersTable extends Migration
 {
@@ -12,6 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Type::addType('timestamp', 'DoctrineTimestamp\DBAL\Types\Timestamp');
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username')->unique();

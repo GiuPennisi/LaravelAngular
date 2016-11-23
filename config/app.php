@@ -156,6 +156,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
 
     ],
 
@@ -171,6 +172,7 @@ return [
     */
 
     'aliases' => [
+        'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
         'JWTAuth'   => Tymon\JWTAuthFacades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
         'App' => Illuminate\Support\Facades\App::class,

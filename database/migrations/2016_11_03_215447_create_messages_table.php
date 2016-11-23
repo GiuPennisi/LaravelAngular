@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Doctrine\DBAL\Types\Type;
 
 class CreateMessagesTable extends Migration
 {
@@ -17,7 +18,7 @@ class CreateMessagesTable extends Migration
             $table->timestamps();
             $table->string('msgSubject');
             $table->string('msgBody');
-            $table->date('mgsSenddate');
+            $table->timestamp('mgsSenddate');
             $table->integer('user_id')->unsigned(); /*autor del mensaje*/
             $table->integer('destinatario_id')->unsigned(); /*quien recibe el mensaje*/
             $table->integer('folder_id')->unsigned();

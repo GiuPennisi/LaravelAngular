@@ -17,7 +17,8 @@ function emailService($log, $http, $auth) {
   }
 
   function sendEmail(email) {
-    return $http.post('api/crearmensaje/' + email);
+    return $http({ method: "POST", url: 'api/crearmensaje/', data: email, cache: false });
+
   }
 
   function getEmails() {

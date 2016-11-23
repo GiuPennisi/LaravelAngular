@@ -12,6 +12,7 @@ use Tymon\JWTAuthExceptions\JWTException;
 use Hash;
 use Response;
 use App\User;
+use App\Folder;
 
 class RegisterController extends Controller
 {
@@ -44,6 +45,16 @@ class RegisterController extends Controller
 
         try {
             $user = User::create($credentials);
+            
+            $folders  = ['Inbox','Starred','Drafts','Important','Spam'];
+            
+            foreach ($folders as $folderName) {
+                $folder = new Folder();
+                $folder->folderName = $folderName;
+                $folder->user_id = $user->id;
+                $folder->save();
+            }
+           
         } catch (Exception $e) {
             return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
         }

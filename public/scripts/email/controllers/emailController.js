@@ -7,7 +7,6 @@ angular
   email.isActive = function (viewLocation) {
     return viewLocation === $location.path();
   };
-  email.test="hola";
   $scope.email = email;
 });
 })();

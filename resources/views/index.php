@@ -14,6 +14,8 @@
     <script src="scripts/js/vendor/jQuery-viewport-checker.min.js"></script>
     <script src="scripts/node_modules/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="scripts/node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    
     <!-- main style files -->
     <link rel="stylesheet" href="scripts/style/css/bootstrap-theme.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
@@ -39,6 +41,8 @@
 
     <!-- services -->
     <script src="scripts/email/services/emailService.js"></script>
+    <script src="scripts/email/services/interceptor.es6.js"></script>
+    <script src="scripts/email/services/api.services.es6.js"></script>
 
     <!-- factories -->
     <script src="scripts/email/factories/sharedData.js"></script>

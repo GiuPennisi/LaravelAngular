@@ -14,7 +14,6 @@ angular
     emailService.sendEmail(sendMessage.email);
     $location.url('');
   };
-  sendMessage.test="hola";
   $scope.sendMessage = sendMessage;
 });
 })();

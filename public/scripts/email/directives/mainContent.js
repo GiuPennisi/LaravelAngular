@@ -12,7 +12,11 @@ angular
         $location.url('email');
       };
        emailService.getEmails().then(function(data) {
-        content.emails = data.data.emails;
+         if(data)
+          if(!!data.data.emails[0])
+            content.emails = data.data.emails;
+          else
+            content.emails = null;
       });
       $scope.content = content;
     },

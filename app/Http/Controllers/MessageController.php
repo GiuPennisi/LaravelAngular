@@ -55,7 +55,7 @@ class MessageController extends Controller
             $today = date('F j, Y, g:i a');
             $newDate = strtotime($today);
             $newDate=date('Y-m-d H:i:s',$newDate);
-            $message->mgsSenddate = $newDate;
+            $message->msgSenddate = $newDate;
 
             $message->user_id = $id;
             
@@ -71,7 +71,7 @@ class MessageController extends Controller
             if ($carpetas){
                 foreach($carpetas as $carpeta){
                     if ($carpeta->user_id == $destinatario_id){
-                        $carpeta_id=$carpeta->id;
+                        $carpeta_id = $carpeta->id;
                         $message->folder_id=$carpeta_id;
                     }
                 }
@@ -96,23 +96,24 @@ class MessageController extends Controller
     public function viewMails(){
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
-        $collection = null;
+        $collection = array();
+        $email = null;
         if ($user){
-                $messages=Message::where('user_id',$user->id);
+                $inbox = Folder::where('folderName','Inbox')->where('user_id',$user->id)->get();
+                $messages = Message::where('destinatario_id',$user->id)->where('folder_id',$inbox[0]->id)->get();
                 if ($messages){
-                    $inbox=Folder::where('folderName','Inbox');
-                    if ($inbox){
-                        foreach ($messages as $message){
-                            if ($message->folder_id == $inbox[0]->id){
-                                $collection = collect($message);    
-                            }
-                        }
-                        return response()->json([
-                            'emails' => $collection
-                        ]);
-                    }else{
-                        return response()->json(['Status' => 'inboxFolderNotFound'],204);
+                    foreach ($messages as $message){
+                        $recipient=User::where('id',$message->destinatario_id)->get();
+                        $email['to'] = $recipient[0]->email;    
+                        $email['from'] = $user->email; 
+                        $email['subject'] = $message->msgSubject;
+                        $email['body'] = $message->msgBody;
+                        $email['date'] = $message->msgSenddate;
+                        array_push($collection, $email);
                     }
+                    return response()->json([
+                        'emails' => $collection
+                    ]);
                 }else{
                     return response()->json(['Status' => 'No Content'],204);
                 }

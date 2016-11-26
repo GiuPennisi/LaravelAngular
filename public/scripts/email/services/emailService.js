@@ -11,11 +11,7 @@ function emailService($log, $http, $auth) {
   function logIn(userInfo) {
     return $auth.login(userInfo);
   }
-
-  function logOut() {
-    return $http.get('api/logout');
-  }
-
+  
   function sendEmail(email) {
     return $http({ method: "POST", url: 'api/crearmensaje/', data: email, cache: false });
 

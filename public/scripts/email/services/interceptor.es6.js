@@ -4,24 +4,23 @@
 angular
     .module('app')
     .factory('authInterceptor', [
-        '$q', 
-        'localStorageService',
+        '$q',
         authInterceptor
     ]);
 
 
-function authInterceptor ($q, localStorageService) {
+function authInterceptor ($q) {
   return {
     request: function (config) {
       config.headers = config.headers || {};
-      if (localStorageService.token) {
-        config.headers['X-Auth-Token'] = localStorageService.token;
+      if (localStorage.getItem('token')) {
+        config.headers['X-Auth-Token'] = localStorage.getItem('token');
       }
       return config;
     },
     response: function (response) {
       if (response.status === 401 && response.status === 400) {
-        localStorageService.$reset();
+        localStorage.clear();
       }
       return response || $q.when(response);
     }

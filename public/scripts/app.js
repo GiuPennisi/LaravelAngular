@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router', 'satellizer','ngMessages','LocalStorageModule'])
+        .module('app', ['ui.router', 'satellizer','ngMessages'])
         .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
 
             // Satellizer configuration that specifies which API
@@ -47,13 +47,13 @@
                     authenticate: true
                 })
         })
-        .run(['$rootScope','$state','localStorageService', run]);
-        function run($rootScope, $state, localStorageService) {
+        .run(['$rootScope','$state', run]);
+        function run($rootScope, $state) {
             $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-                if (toState.authenticate && !localStorageService.token) {
+                if (toState.authenticate && !localStorage.getItem('token')) {
                     $state.transitionTo("login");
                     event.preventDefault();
-                } else if (toState.name === "login" && !!localStorageService.token){
+                } else if (toState.name === "login" && !!localStorage.getItem('token')){
                     $state.transitionTo("main");
                     event.preventDefault();
                 }

@@ -8,7 +8,7 @@ angular
     controller: function ($scope, $location) {
       var navbar = this;
       navbar.logOut = function () {
-        emailService.logOut();
+        localStorage.clear();
         $location.url('login');
       };
       $scope.navbar = navbar;

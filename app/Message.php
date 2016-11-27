@@ -10,7 +10,7 @@ use App\Destinatario;
 
 class Message extends Model{
 
-	protected $fillable = ['msgSubject','msgBody','mgsSenddate'];
+	protected $fillable = ['msgSubject','msgBody','msgSenddate'];
 
     public function folder(){
     	return $this->belongsTo('App\Folder');

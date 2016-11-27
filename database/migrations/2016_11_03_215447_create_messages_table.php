@@ -18,7 +18,7 @@ class CreateMessagesTable extends Migration
             $table->timestamps();
             $table->string('msgSubject');
             $table->string('msgBody');
-            $table->timestamp('msgSenddate');
+            $table->dateTime('msgSenddate');
             $table->integer('user_id')->unsigned(); /*autor del mensaje*/
             $table->integer('destinatario_id')->unsigned(); /*quien recibe el mensaje*/
             $table->integer('folder_id')->unsigned();

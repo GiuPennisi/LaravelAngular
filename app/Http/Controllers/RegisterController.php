@@ -13,7 +13,9 @@ use Hash;
 use Response;
 use App\User;
 use App\Folder;
-
+use App\Country;
+use App\Province;
+use App\City;
 class RegisterController extends Controller
 {
     /**
@@ -29,8 +31,8 @@ class RegisterController extends Controller
        $this->middleware('jwt.auth', ['except' => ['signup']]);
      }
 
-    public function index(){   
-        
+    public function index(){
+
     }
 
     /**
@@ -39,22 +41,22 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function signup(Request $request)
-    {   
+    {
         $credentials = $request->only('birthday','city','lastname','name','username','email','password');
         $credentials['password'] = Hash::make( $credentials['password'] );
 
         try {
             $user = User::create($credentials);
-            
+
             $folders  = ['Inbox','Starred','Drafts','Important','Spam'];
-            
+
             foreach ($folders as $folderName) {
                 $folder = new Folder();
                 $folder->folderName = $folderName;
                 $folder->user_id = $user->id;
                 $folder->save();
             }
-           
+
         } catch (Exception $e) {
             return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
         }
@@ -64,11 +66,36 @@ class RegisterController extends Controller
         return Response::json(compact('token'));
     }
 
+    public function countries(){
+      $countries=Country::all();
+      if ($countries){
+        return response()->json(["Status"=>"Ok","data"=>$countries],200);
+      }else{
+        return response()->json(["Status"=>"No Content"],204);
+      }
+    }
+    /*
+    *
+    * Se le pasa como parametro el id del pais elegido
+    * Devuelve el conjunto de provincias asociadas a ese country_id
+    */
+    public function provinces (Request $request){
+      $country=Country::where('country','=',$request->country_name);
+      $provinces = Province::find($country->id);
+      if ($provinces){
+        return response()->json(["Status"=>"Ok","data"=>$provinces],200);
+      }else{
+        return response()->json(["Status"=>"No Content"],204);
+      }
+    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function cities (Request $request){
+      $province_id=Province::where('province','=',$request->province_name);
+      $cities = Province::find($province->id);
+      if ($cities){
+        return response()->json(["Status"=>"Ok","data"=>$cities],200);
+      }else{
+        return response()->json(["Status"=>"No Content"],204);
+      }
+    }
 }

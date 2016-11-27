@@ -84,21 +84,30 @@ class RegisterController extends Controller
     */
     public function provinces (Request $request){
       $country=Country::where('country','=',$request->country_name);
-      $provinces = Province::where('country_id','=',$country->id);
-      if ($provinces){
-        return response()->json(["Status"=>"Ok","data"=>$provinces],200);
+      if ($country){
+          $provinces = Province::where('country_id','=',$country->id);
+          if ($provinces){
+            return response()->json(["Status"=>"Ok","data"=>$provinces],200);
+          }else{
+            return response()->json(["Status"=>"no_province"],204);
+          }
       }else{
-        return response()->json(["Status"=>"No Content"],204);
+        return response()->json(["Status"=>"no_country"],204);
       }
     }
 
     public function cities (Request $request){
       $province=Province::where('province','=',$request->province_name);
-      $cities = City::where('province_id','=',$province->id);
-      if ($cities){
-        return response()->json(["Status"=>"Ok","data"=>$cities],200);
-      }else{
-        return response()->json(["Status"=>"No Content"],204);
+      if ($province){
+          $cities = City::where('province_id','=',$province->id);
+          if ($cities){
+            return response()->json(["Status"=>"Ok","data"=>$cities],200);
+          }else{
+            return response()->json(["Status"=>"no_city"],204);
+          }
+      }else {
+        return response()->json(["Status"=>"no_province"],204);
       }
+
     }
 }

@@ -66,6 +66,9 @@ class RegisterController extends Controller
         return Response::json(compact('token'));
     }
 
+    /*
+    * Devuelve el conjunto de paises
+    */
     public function countries(){
       $countries=Country::all();
       if ($countries){
@@ -74,14 +77,14 @@ class RegisterController extends Controller
         return response()->json(["Status"=>"No Content"],204);
       }
     }
+
     /*
-    *
     * Se le pasa como parametro el id del pais elegido
     * Devuelve el conjunto de provincias asociadas a ese country_id
     */
     public function provinces (Request $request){
       $country=Country::where('country','=',$request->country_name);
-      $provinces = Province::find($country->id);
+      $provinces = Province::where('country_id','=',$country->id);
       if ($provinces){
         return response()->json(["Status"=>"Ok","data"=>$provinces],200);
       }else{
@@ -90,8 +93,8 @@ class RegisterController extends Controller
     }
 
     public function cities (Request $request){
-      $province_id=Province::where('province','=',$request->province_name);
-      $cities = Province::find($province->id);
+      $province=Province::where('province','=',$request->province_name);
+      $cities = City::where('province_id','=',$province->id);
       if ($cities){
         return response()->json(["Status"=>"Ok","data"=>$cities],200);
       }else{

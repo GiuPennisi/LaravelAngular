@@ -25,4 +25,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/folder.json','FolderController@index');
     Route::post('/signup','RegisterController@signup');
     Route::get('/countries.json','RegisterController@countries');
+    Route::get('/provinces.json','RegisterController@provinces');
+    Route::get('/cities.json','RegisterController@cities');
 });

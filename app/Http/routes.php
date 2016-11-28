@@ -18,13 +18,13 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function () {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
-    Route::get('/getID.json','UserController@getLoginID');
+    Route::get('/getID','UserController@getLoginID');
     Route::get('/home', 'HomeController@index');
     Route::post('/crearmensaje','MessageController@create');
     Route::post('/getemail','MessageController@viewMails');
-    Route::get('/folder.json','FolderController@index');
+    Route::get('/folder','FolderController@index');
     Route::post('/signup','RegisterController@signup');
-    Route::get('/countries.json','RegisterController@countries');
-    Route::get('/provinces.json','RegisterController@provinces');
-    Route::get('/cities.json','RegisterController@cities');
+    Route::post('/countries','RegisterController@countries');
+    Route::post('/provinces','RegisterController@provinces');
+    Route::post('/cities','RegisterController@cities');
 });

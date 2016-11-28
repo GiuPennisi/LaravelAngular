@@ -9,6 +9,7 @@
     <script src="scripts/js/vendor/angular-route.js"></script>
     <script src="scripts/js/vendor/angular-messages.js"></script>
     <script src="scripts/js/vendor/jquery.js"></script>
+    <script src="scripts/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="scripts/js/vendor/boostrap.min.js"></script>
     <script src="scripts/js/vendor/ui-bootstrap-tpls-1.3.2.min.js"></script>
     <script src="scripts/js/vendor/jQuery-viewport-checker.min.js"></script>

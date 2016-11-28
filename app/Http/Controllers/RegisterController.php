@@ -28,7 +28,7 @@ class RegisterController extends Controller
        // Apply the jwt.auth middleware to all methods in this controller
        // except for the authenticate method. We don't want to prevent
        // the user from retrieving their token if they don't already have it
-       $this->middleware('jwt.auth', ['except' => ['signup']]);
+       $this->middleware('jwt.auth', ['except' => ['signup','countries','provinces', 'cities']]);
      }
 
     public function index(){
@@ -42,10 +42,20 @@ class RegisterController extends Controller
      */
      public function signup(Request $request)
     {
-        $credentials = $request->only('birthday','city','lastname','name','username','email','password');
+        $credentials = $request->only('birthday','lastname','name','username','email','password');
         $credentials['password'] = Hash::make( $credentials['password'] );
+        $cities = City::all();
+        $cityRequest = $request->only('city');
+
+        foreach($cities as $cityAux) {
+            if ($cityAux->city === $cityRequest['city']) {
+               $credentials['city_id'] = $cityAux->id;
+            }
+          }
 
         try {
+            return Response::json(['city'=>$credentials]);
+
             $user = User::create($credentials);
 
             $folders  = ['Inbox','Starred','Drafts','Important','Spam'];
@@ -72,7 +82,11 @@ class RegisterController extends Controller
     public function countries(){
       $countries=Country::all();
       if ($countries){
-        return response()->json(["Status"=>"Ok","data"=>$countries],200);
+        $countriesArray = [];
+        foreach ($countries as $country) {
+          array_push($countriesArray, $country->country);
+        }
+        return response()->json(["Status"=>"Ok","data"=>$countriesArray],200);
       }else{
         return response()->json(["Status"=>"No Content"],204);
       }
@@ -83,11 +97,27 @@ class RegisterController extends Controller
     * Devuelve el conjunto de provincias asociadas a ese country_id
     */
     public function provinces (Request $request){
-      $country=Country::where('country','=',$request->country_name);
+      $countries = Country::all();
+      $country = null;
+      
+      foreach($countries as $countryAux) {
+        if ($countryAux->country == $request->country) {
+            $country = $countryAux;
+            break;
+        }
+      }
+      
       if ($country){
-          $provinces = Province::where('country_id','=',$country->id);
-          if ($provinces){
-            return response()->json(["Status"=>"Ok","data"=>$provinces],200);
+          $provinceArray= [];
+          $provinces = Province::all();
+
+          foreach($provinces as $provinceAux) {
+            if ($provinceAux->country_id == $country->id) {
+                array_push($provinceArray, $provinceAux->province);
+            }
+          }
+          if (sizeof($provinceArray) > 0){
+            return response()->json(["Status"=>"Ok","data"=>$provinceArray],200);
           }else{
             return response()->json(["Status"=>"no_province"],204);
           }
@@ -97,17 +127,30 @@ class RegisterController extends Controller
     }
 
     public function cities (Request $request){
-      $province=Province::where('province','=',$request->province_name);
-      if ($province){
-          $cities = City::where('province_id','=',$province->id);
-          if ($cities){
-            return response()->json(["Status"=>"Ok","data"=>$cities],200);
-          }else{
-            return response()->json(["Status"=>"no_city"],204);
-          }
-      }else {
-        return response()->json(["Status"=>"no_province"],204);
+      $provinces = Province::all();
+      $province = null;
+      foreach($provinces as $provinceAux) {
+        if ($provinceAux->province == $request->province) {
+            $province = $provinceAux;
+            break;
+        }
       }
+      if ($province){
+          $cityArray= [];
+          $cities = City::all();
 
+          foreach($cities as $cityAux) {
+            if ($cityAux->province_id == $province->id) {
+                array_push($cityArray, $cityAux->city);
+            }
+          }
+          if (sizeof($cityArray) > 0){
+            return response()->json(["Status"=>"Ok","data"=>$cityArray],200);
+          }else{
+            return response()->json(["Status"=>"no_province"],204);
+          }
+      }else{
+        return response()->json(["Status"=>"no_country"],204);
+      }
     }
 }

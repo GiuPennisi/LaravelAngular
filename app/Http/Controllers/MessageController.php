@@ -113,7 +113,7 @@ class MessageController extends Controller
                     }
                     return response()->json([
                         'emails' => $collection
-                    ]);
+                    ],200);
                 }else{
                     return response()->json(['Status' => 'No Content'],204);
                 }

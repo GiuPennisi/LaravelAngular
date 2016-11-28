@@ -4,6 +4,10 @@ angular
 .module('app')
 .controller('sendMessageController', function ($scope, $location, emailService) {
   var sendMessage = {};
+  emailService.getUsers().then(function(data){
+    sendMessage.users = data.data.data;
+  });
+  
   sendMessage.isActive = function (viewLocation) {
     return viewLocation === $location.path();
   };

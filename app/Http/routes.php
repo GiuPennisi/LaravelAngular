@@ -19,9 +19,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
     Route::get('/getID','UserController@getLoginID');
+    Route::get('/getUsers','UserController@getUsers');
     Route::get('/home', 'HomeController@index');
     Route::post('/crearmensaje','MessageController@create');
     Route::post('/getemail','MessageController@viewMails');
+    Route::post('/getFolderContent','MessageController@getFolderContent');
     Route::get('/folder','FolderController@index');
     Route::post('/signup','RegisterController@signup');
     Route::post('/countries','RegisterController@countries');

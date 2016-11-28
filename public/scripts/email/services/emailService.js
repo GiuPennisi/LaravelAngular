@@ -32,6 +32,14 @@ function emailService($log, $http, $auth) {
     return $http.post('api/getemail');
   }
 
+  function getUsers() {
+    return $http.get('api/getUsers');
+  }
+
+  function getFolderContent(folder) {
+    return $http({ method: "POST", url: 'api/getFolderContent', data: folder, cache: false });
+  }
+
   function register(userInfo) {
     return $http({ method: "POST", url: 'api/signup', data: userInfo, cache: false });
   }
@@ -43,6 +51,8 @@ function emailService($log, $http, $auth) {
     getCities,
     sendEmail,
     getEmails,
+    getUsers,
+    getFolderContent,
     register,
   };
 

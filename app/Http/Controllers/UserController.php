@@ -17,6 +17,7 @@ use Illuminate\Contracts\Auth\SupportsBasicAuth;
 use Illuminate\Contracts\Cookie\QueueingFactory as CookieJar;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use App\User;
 
 class UserController extends Controller
 {
@@ -29,7 +30,18 @@ class UserController extends Controller
     {
         //
     }
-
+    public function getUsers() {
+    $users=User::all();
+      if ($users){
+        $usersArray = [];
+        foreach ($users as $user) {
+          array_push($usersArray, $user->email);
+        }
+        return response()->json(["Status"=>"Ok","data"=>$usersArray],200);
+      }else{
+        return response()->json(["Status"=>"No Content"],204);
+      }
+    }
     /**
      * Show the form for creating a new resource.
      *

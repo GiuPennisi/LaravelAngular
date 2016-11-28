@@ -5,14 +5,12 @@
     </div>
     <div class="page-content">
         <form name="sendMessageForm">
-
-          <div class="form-group" ng-class="{ 'has-error': sendMessageForm.to.$touched && sendMessageForm.to.$invalid }">
-              <label for="to">To</label>
-              <input type="email" placeholder="Enter email" class="form-control" name="to" ng-model="sendMessage.email.destinatario_email" required >
-              <div class="help-block text-left" ng-messages="sendMessageForm.to.$error" ng-if="sendMessageForm.to.$touched">
-                  <div ng-messages-include="scripts/email/views/login-messages.html"></div>
-              </div>
-	        </div>
+        
+        <div class="form-group">
+            <label class="mb5">To</label>
+            <select class="form-control mb10" ng-model="sendMessage.email.destinatario_email" ng-options="users as users for users in sendMessage.users">
+            </select>  
+        </div>  
 
           <div class="form-group" ng-class="{ 'has-error': sendMessageForm.subject.$touched && sendMessageForm.subject.$invalid }">
               <label for="subject">Subject</label>
@@ -33,10 +31,10 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-6 col-sm-12 col-xs-12">
-                <button ng-disabled="sendMessageForm.$invalid" type="submit" ng-click="sendMessage.send()">Send</button>
+                <button ng-disabled="sendMessageForm.$invalid || !sendMessage.email.destinatario_email" type="submit" ng-click="sendMessage.send()">Send</button>
               </div>
-              <div class="col-md-6 col-sm-12 col-xs-12 forgot-pass">
-                <a href ng-click="sendMessage.goTo()">Cancel</a>
+              <div class="col-md-6 col-sm-12 col-xs-12 forgot-pass text-right">
+                <button href ng-click="sendMessage.goTo()">Cancel</a>
               </div>
             </div>
           </div>

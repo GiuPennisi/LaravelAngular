@@ -1,10 +1,10 @@
 <div class="sidebar col-md-2">
 <ul class="content-box">
   <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#!/sendMessage">Send New Message</a></li>
-  <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#">Inbox</a></li>
+  <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" ng-click="sidebar.getFolderContent('Inbox')" href="#">Inbox</a></li>
   <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#">Starred</a></li>
   <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#">Important</a></li>
-  <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#">Sent Email</a></li>
+  <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" ng-click="sidebar.getFolderContent('Sent')" href="#">Sent Email</a></li>
   <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#">Drafts</a></li>
   <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#">Spam</a></li>
   <li ng-repeat="folder in sidebar.folders">

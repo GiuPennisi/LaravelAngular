@@ -28,6 +28,9 @@ angular
   register.goTo = function() {
     $location.url('');
   };
+  register.cancel = function() {
+    $state.go('login', {});
+  };
 
   register.register = function () {
     emailService.register(register.userInfo).then(function(users) {

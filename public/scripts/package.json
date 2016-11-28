@@ -1,7 +1,7 @@
 {
   "name": "arq-web",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tp",
   "main": "app.js",
   "dependencies": {
     "angular": "^1.6.0-rc.2",

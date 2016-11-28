@@ -54,11 +54,10 @@ class RegisterController extends Controller
           }
 
         try {
-            return Response::json(['city'=>$credentials]);
 
             $user = User::create($credentials);
 
-            $folders  = ['Inbox','Starred','Drafts','Important','Spam'];
+            $folders  = ['Inbox','Sent','Starred','Drafts','Important','Spam'];
 
             foreach ($folders as $folderName) {
                 $folder = new Folder();
@@ -97,26 +96,15 @@ class RegisterController extends Controller
     * Devuelve el conjunto de provincias asociadas a ese country_id
     */
     public function provinces (Request $request){
-      $countries = Country::all();
-      $country = null;
-      
-      foreach($countries as $countryAux) {
-        if ($countryAux->country == $request->country) {
-            $country = $countryAux;
-            break;
-        }
-      }
-      
-      if ($country){
-          $provinceArray= [];
-          $provinces = Province::all();
+      $country = Country::where('country',$request->country)->get();
 
-          foreach($provinces as $provinceAux) {
-            if ($provinceAux->country_id == $country->id) {
-                array_push($provinceArray, $provinceAux->province);
-            }
+      if ($country){
+          $provinces = Province::where('country_id',$country[0]->id)->get();
+          $provinceArray = [];
+          foreach ($provinces as $province) {
+            array_push($provinceArray, $province->province);
           }
-          if (sizeof($provinceArray) > 0){
+          if ($provinceArray){
             return response()->json(["Status"=>"Ok","data"=>$provinceArray],200);
           }else{
             return response()->json(["Status"=>"no_province"],204);
@@ -127,24 +115,14 @@ class RegisterController extends Controller
     }
 
     public function cities (Request $request){
-      $provinces = Province::all();
-      $province = null;
-      foreach($provinces as $provinceAux) {
-        if ($provinceAux->province == $request->province) {
-            $province = $provinceAux;
-            break;
-        }
-      }
+      $province = Province::where('province',$request->province)->get();
       if ($province){
           $cityArray= [];
-          $cities = City::all();
-
-          foreach($cities as $cityAux) {
-            if ($cityAux->province_id == $province->id) {
-                array_push($cityArray, $cityAux->city);
-            }
+          $cities = City::where('province_id',$province[0]->id)->get();
+          foreach ($cities as $city) {
+            array_push($cityArray, $city->city);
           }
-          if (sizeof($cityArray) > 0){
+          if ($cityArray){
             return response()->json(["Status"=>"Ok","data"=>$cityArray],200);
           }else{
             return response()->json(["Status"=>"no_province"],204);

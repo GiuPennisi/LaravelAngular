@@ -5,9 +5,32 @@ angular
 .directive('sidebar', function () {
   return {
     templateUrl: 'scripts/email/views/sidebar.html',
-    controller: function ($scope, $timeout, sharedData) {
+    controller: function ($rootScope, $scope, $timeout, sharedData, emailService) {
       var sidebar = this;
       sidebar.folders = sharedData.getFolders();
+      var folderObject = {
+          folder: "Inbox"
+      }
+      emailService.getFolderContent(folderObject).then(function(data){
+          if(data)
+            if(!!data.data.emails[0])
+              $rootScope.$broadcast('changeMailContent', data.data.emails);
+            else
+              $rootScope.$broadcast('changeMailContent', null);
+        });
+
+      sidebar.getFolderContent = function(folder) {
+        folderObject.folder = folder;
+
+        emailService.getFolderContent(folderObject).then(function(data){
+          if(data)
+            if(!!data.data.emails[0])
+              $rootScope.$broadcast('changeMailContent', data.data.emails);
+            else
+              $rootScope.$broadcast('changeMailContent', null);
+        });
+      }
+
       if(!!!sidebar.folders){
         sidebar.folders = [];
       }

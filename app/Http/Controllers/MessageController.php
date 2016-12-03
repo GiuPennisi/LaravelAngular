@@ -40,8 +40,8 @@ class MessageController extends Controller
          if ($user){
                 $collection = [];
                 $folderName = $request->folder;
-                $sent = Folder::where('folderName',$folderName)->where('user_id',$user->id)->get();
-                $messages = Message::where('user_id',$user->id)->where('folder_id',$sent[0]->id)->get();
+                $folder = Folder::where('folderName',$folderName)->where('user_id',$user->id)->get();
+                $messages = Message::where('user_id',$user->id)->where('folder_id',$folder[0]->id)->get();
 
                 if ($messages){
                     foreach ($messages as $message){

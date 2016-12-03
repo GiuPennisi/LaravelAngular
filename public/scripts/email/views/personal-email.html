@@ -3,14 +3,17 @@
     <div class="col-lg-1">
       <button ng-click="personal.return()" type="button" class="btn btn-default" name="button"><span class="glyphicon glyphicon-chevron-left"></span></button>
     </div>
-    <div class="col-lg-1">
-      <span class="from">{{personal.email.from}}</span>
-    </div>
-    <div class="col-lg-8">
-      <span class="from">{{personal.email.subject}}</span>
+    <div class="col-lg-2">
+      <span class="from">From: {{personal.email.from}}</span>
     </div>
     <div class="col-lg-2">
-      <span class="date">{{personal.email.date}}</span>
+      <span class="from">To: {{personal.email.to}}</span>
+    </div>
+    <div class="col-lg-5">
+      <span class="from">Subject: {{personal.email.subject}}</span>
+    </div>
+    <div class="col-lg-2">
+      <span class="date">Date: {{personal.email.date}}</span>
     </div><!-- /.col-lg-6 -->
   </div><!-- /.row -->
   <div class="email-content">

@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router', 'satellizer','ngMessages','ui.bootstrap'])
+        .module('app', ['ui.router', 'satellizer','ngMessages','ui.bootstrap', 'ui.select'])
         .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
 
             // Satellizer configuration that specifies which API

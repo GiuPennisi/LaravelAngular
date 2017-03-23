@@ -9,7 +9,8 @@
     "angular-ui-bootstrap": "^2.3.0",
     "angular-ui-router": "^0.3.2",
     "cli": "^1.0.1",
-    "satellizer": "^0.15.5"
+    "satellizer": "^0.15.5",
+    "ui-select": "^0.19.6"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,4 +1,7 @@
 @import 'colors';
+.ui-select-multiple input.ui-select-search:not(.ng-touched) {
+    width: 100% !important;
+}
 #personal-info {
   .form-box {
     margin-top: 60px;
@@ -53,6 +56,11 @@
       &::-webkit-input-placeholder{
         font-size: 16px;
       }
+  }
+  .send-email-input {
+    input {
+      color: black; 
+    }
   }
   .forgot-pass {
     text-align: right;

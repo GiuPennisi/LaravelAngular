@@ -9,9 +9,10 @@
     <script src="scripts/js/vendor/angular-route.js"></script>
     <script src="scripts/js/vendor/angular-messages.js"></script>
     <script src="scripts/js/vendor/jquery.js"></script>
-    <script src="scripts/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="scripts/js/vendor/boostrap.min.js"></script>
     <script src="scripts/js/vendor/ui-bootstrap-tpls-1.3.2.min.js"></script>
+    <script src="scripts/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="scripts/node_modules/ui-select/dist/select.min.js"></script>
     <script src="scripts/js/vendor/jQuery-viewport-checker.min.js"></script>
     <script src="scripts/node_modules/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="scripts/style/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/main.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="scripts/node_modules/ui-select/dist/select.min.css" media="screen" title="no title" charset="utf-8">
 
     <!-- main Angular app file -->
     <script src="scripts/app.js"></script>

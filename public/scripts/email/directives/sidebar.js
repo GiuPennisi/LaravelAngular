@@ -13,15 +13,17 @@ angular
       }
       emailService.getFolderContent(folderObject).then(function(data){
           if(data)
-            if(!!data.data.emails[0])
+            if(!!data.data.emails[0]){
               $rootScope.$broadcast('changeMailContent', data.data.emails);
+            }
             else
               $rootScope.$broadcast('changeMailContent', null);
         });
 
       sidebar.getFolderContent = function(folder) {
         folderObject.folder = folder;
-
+        sharedData.setCurrentTab(folder);
+        $rootScope.$broadcast('changeCurrentTab');
         emailService.getFolderContent(folderObject).then(function(data){
           if(data)
             if(!!data.data.emails[0])

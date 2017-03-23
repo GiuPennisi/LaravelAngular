@@ -12,6 +12,8 @@ class Message extends Model{
 
 	protected $fillable = ['msgSubject','msgBody','msgSenddate'];
 
+    protected $table = 'messages';
+
     public function folder(){
     	return $this->belongsTo('App\Folder');
     }

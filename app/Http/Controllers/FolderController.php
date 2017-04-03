@@ -18,18 +18,12 @@ class FolderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){   
-        if (Auth::check()){
-            $id = Auth::id();
-
             $folders = Folder::where('user_id',$id)->get();
             if($folders){
                 return response()->json(["Status" => "Ok", "data" => $folders], 200);
             }else{
                 return response()->json(["Status" => "Not content"], 204);
             }
-        }else{
-            return response()->json(["Status" => "Unauthorized"],401);
-        } 
     }
 
     /**
@@ -37,14 +31,14 @@ class FolderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function createfolder(Request $request)
     {
-        if (Auth::check()){
-            $id=Auth::id();
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+         if ($user){
             $folder = new Folder();
-            $folder->folderName = $request->folderName;
-            $folder->user_id = $user_id;
-
+            $folder->folderName = $request->name;
+            $folder->user_id = $user->id;
             if($folder->save()){
                 return response()->json(["Status" => "Carpeta creada"], 200);
             }else{
@@ -56,66 +50,31 @@ class FolderController extends Controller
     }
 
 
-    /**
+     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function getFolders(Request $request)
     {
-        if (Auth::check()){
-            $user_id = Auth::id();
-            $folder = Folder::find($id);
-            if ($folder){
-                if ($user_id == $folder->user_id){
-                    return response()->json(["Status" => "Ok","data" => $folder],200);
-                }
-                else{
-                    return response()->json(["Status" => "Forbidden"],403);
-                }
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+         if ($user){
+            $folders = Folder::where('user_id',$user->id)->get();;
+            if($folders){
+                return response()->json(['folders' => $folders],200);
             }else{
-                return response()->json(["Status" => "No Content"],204);
-            }
-
-        }else{
-            return response()->json(["Status" => "Unauthorized"],401);
-        }
-
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id){
-
-        if (Auth::check()){
-            $user_id = Auth::id();
-            $folder = Folder::find($id)->where("user_id",$user_id)->get();
-            if ($folder){
-                $folder->folderName = $request->folderName;
-            }else{
-                return response()->json(["Status"=>"No Content"],204);
-            }
-
-            if ($folder->save()){
-                return response()->json(["Status"=>"Ok"],200);
-            }else{
-                return response()->json(["Status" => "Internal Server Error"],500);
+                return response()->json(["Status" => "Error al traer las carpetas"], 500);
             }
         }else{
             return response()->json(["Status" => "Unauthorized"],401);
         }
-
     }
 
     /**
-     * SI ELIMINO LA CARPETA, SE ELIMINAN EN CASCADA LOS MENSAJES ASOCIADOS A ELLA?
+     * brings all folders for a user
      * 
      * @param  int  $id
      * @return \Illuminate\Http\Response

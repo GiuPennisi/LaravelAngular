@@ -24,8 +24,11 @@ function emailService($log, $http, $auth) {
     return $http({ method: "POST", url: 'api/cities/', data: province, cache: false });
   }
 
-  function sendEmail(email) {
-    return $http({ method: "POST", url: 'api/crearmensaje/', data: email, cache: false });
+  function sendEmail(email,attachment) {
+    var fd = new FormData();
+    fd.append('attachment', attachment[0].lfFile);
+    fd.append('email',JSON.stringify(email));
+    return $http({ method: "POST", url: 'api/crearmensaje/', withCredentials : false, headers : {'Content-Type' : undefined}, transformRequest : angular.identity, data: fd});
   }
 
   function getEmails() {
@@ -38,6 +41,14 @@ function emailService($log, $http, $auth) {
 
   function getFolderContent(folder) {
     return $http({ method: "POST", url: 'api/getFolderContent', data: folder, cache: false });
+  }
+
+  function addFolder(folder) {
+    return $http({ method: "POST", url: 'api/createfolder', data: folder, cache: false });
+  }
+
+  function getFolders() {
+    return $http({ method: "GET", url: 'api/getFolders', cache: false });
   }
 
   function register(userInfo) {
@@ -53,6 +64,8 @@ function emailService($log, $http, $auth) {
     getEmails,
     getUsers,
     getFolderContent,
+    addFolder,
+    getFolders,
     register,
   };
 

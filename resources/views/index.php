@@ -17,14 +17,21 @@
     <script src="scripts/node_modules/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="scripts/node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="scripts/node_modules/angular/angular.min.js"></script>
+    <script src="scripts/node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="scripts/node_modules/angular-aria/angular-aria.min.js"></script>
+    <script src="scripts/node_modules/angular-material/angular-material.min.js"></script>
+    <script src="scripts/node_modules/lf-ng-md-file-input/dist/lf-ng-md-file-input.min.js"></script>
+
     
     <!-- main style files -->
+    <link rel="stylesheet" href="scripts/node_modules/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="scripts/style/css/bootstrap-theme.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/main.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/style/css/animate.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="scripts/node_modules/ui-select/dist/select.min.css" media="screen" title="no title" charset="utf-8">
-
+    <link rel="stylesheet" href="scripts/node_modules/lf-ng-md-file-input/dist/lf-ng-md-file-input.min.css" media="screen" title="no title" charset="utf-8">
     <!-- main Angular app file -->
     <script src="scripts/app.js"></script>
 
@@ -40,7 +47,6 @@
     <script src="scripts/email/directives/navbar.js"></script>
     <script src="scripts/email/directives/sidebar.js"></script>
     <script src="scripts/email/directives/mainContent.js"></script>
-
 
     <!-- services -->
     <script src="scripts/email/services/emailService.js"></script>

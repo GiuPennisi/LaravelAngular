@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use App\Http\Requests;
-
 use Auth;
 
 use App\User;
@@ -82,10 +83,9 @@ class MessageController extends Controller
             $today = date('F j, Y, g:i a');
             $newDate = strtotime($today);
             $newDate=date('Y-m-d H:i:s',$newDate);
-
+            $email = json_decode($request->email);
             $userSentFolder = Folder::where('folderName','sent')->where('user_id',$id)->first();
-
-            foreach ($request->destinatarios_email as $key => $destino) {
+            foreach ($email->destinatarios_email as $key => $destino) {
                 $foldersToCopy = ['inbox','sent'];
 
                 foreach ($foldersToCopy as $folderKey => $folder) {
@@ -93,11 +93,10 @@ class MessageController extends Controller
                     $destiny = User::where('email',$destino)->first();
                     
                     $message = new Message();
-                    $message->msgSubject = $request->msgSubject;
-                    $message->msgBody = $request->msgBody;
+                    $message->msgSubject = $email->msgSubject;
+                    $message->msgBody = $email->msgBody;
                     $message->msgSenddate = $newDate;
                     $message->user_id = $id;
-
                     if ($destiny) {
                         $message->destinatario_id = $destiny->id;
                     } else {
@@ -110,6 +109,9 @@ class MessageController extends Controller
                     } else {
                         $message->folder_id = $userSentFolder->id;
                     }
+                    dd($message);
+                    $path = Storage::putFile($request->attachment, new File($request->attachment->path()));
+                    dd($path);
                     $message->save();
                 }
             }

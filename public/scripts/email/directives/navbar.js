@@ -2,7 +2,7 @@
 'use strict';
 angular
 .module('app')
-.directive('navbar', function (emailService,sharedData) {
+.directive('navBar', function (emailService,sharedData) {
   return {
     templateUrl: 'scripts/email/views/navbar.html',
     controller: function ($scope, $location) {

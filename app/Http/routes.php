@@ -25,6 +25,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/getemail','MessageController@viewMails');
     Route::post('/getFolderContent','MessageController@getFolderContent');
     Route::get('/folder','FolderController@index');
+    Route::get('/getFolders','FolderController@getFolders');
+    Route::post('/createfolder','FolderController@createfolder');
     Route::post('/signup','RegisterController@signup');
     Route::post('/countries','RegisterController@countries');
     Route::post('/provinces','RegisterController@provinces');

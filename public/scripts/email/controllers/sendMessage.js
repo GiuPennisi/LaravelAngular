@@ -15,7 +15,7 @@ angular
     $location.url('');
   };
   sendMessage.send = function () {
-    emailService.sendEmail(sendMessage.email);
+    emailService.sendEmail(sendMessage.email,sendMessage.attachment);
     $location.url('');
   };
   $scope.sendMessage = sendMessage;

@@ -2,12 +2,14 @@
 'use strict';
 angular
 .module('app')
-.directive('sidebar', function () {
+.directive('sideBar', function () {
   return {
     templateUrl: 'scripts/email/views/sidebar.html',
-    controller: function ($rootScope, $scope, $timeout, sharedData, emailService) {
+    controller: function ($rootScope, $scope, sharedData, emailService) {
       var sidebar = this;
-      sidebar.folders = sharedData.getFolders();
+     emailService.getFolders().then(function(response) {
+        sidebar.folders = response.data.folders;
+     });
       var folderObject = {
           folder: "Inbox"
       }
@@ -68,6 +70,7 @@ angular
           };
           sidebar.showFolder = false;
           sidebar.folders.push(folder);
+          emailService.addFolder(folder);
           sharedData.setFolders(sidebar.folders);
         }
         else {

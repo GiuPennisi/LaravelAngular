@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "angular-local-storage": "^0.5.0",
+    "lf-ng-md-file-input": "^1.5.1",
     "ui-select": "^0.19.6"
   }
 }

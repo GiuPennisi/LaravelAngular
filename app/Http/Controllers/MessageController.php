@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use App\Http\Requests;
 use Auth;
-
 use App\User;
 use Response;
 use App\Message;
-
 use App\Folder;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
@@ -109,9 +107,13 @@ class MessageController extends Controller
                     } else {
                         $message->folder_id = $userSentFolder->id;
                     }
-                    dd($message);
-                    $path = Storage::putFile($request->attachment, new File($request->attachment->path()));
-                    dd($path);
+                    
+                    $d = $request->file();
+                    dd(Storage::disk('local')->get('elpasajeroputo.png'));
+                    foreach ($d as $file) {
+                        $updFile = $file->move(storage_path('app\public\images'), $file->getClientOriginalName());
+                        $message->attachmentPath = $file->getRealPath();
+                    }
                     $message->save();
                 }
             }

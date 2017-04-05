@@ -1,5 +1,6 @@
 <div class="sidebar col-md-2">
 <ul class="content-box">
+  <li><a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" href="#!/sendMessage">Send New Message</a></li>
   <li ng-repeat="folder in sidebar.folders">
      <a class="option pl10 mt5 pt5 pb5 mb5 pt5 pb5" ng-click="sidebar.getFolderContent(folder.folderName)" href="#">{{folder.folderName}}</a>
   </li>

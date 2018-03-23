@@ -1,15 +1,15 @@
-(function () {
+(function() {
 'use strict';
 angular
 .module('app')
-.directive('sideBar', function () {
+.directive('sideBar', function() {
   return {
     templateUrl: 'scripts/email/views/sidebar.html',
-    controller: function ($rootScope, $scope, sharedData, emailService) {
+    controller: function($rootScope, $scope, sharedData, emailService) {
       var sidebar = this;
-     emailService.getFolders().then(function(response) {
-        sidebar.folders = response.data.folders;
-     });
+
+      getFolders();
+
       var folderObject = {
           folder: "Inbox"
       }
@@ -38,15 +38,27 @@ angular
       if(!!!sidebar.folders){
         sidebar.folders = [];
       }
-      sidebar.showAddInput = function () {
-        sidebar.showFolder = true;
+      sidebar.showAddInput = function() {
+        sidebar.showNewFolder = true;
       }
-      sidebar.newFolderName = "";
+      sidebar.showDeleteSelect = function() {
+        sidebar.showDeleteFolder = true;
+      }
 
+      sidebar.deleteFolder = function() {
+        emailService.deleteFolder(sidebar.selectedFolder);
+        getFolders();
+      }
+      
+      sidebar.newFolderName = "";
+      
+      sidebar.cancelDelete = function() {
+        sidebar.showDeleteFolder = false;
+      }
       sidebar.cancel = function() {
         sidebar.nameError = false;
         sidebar.alreadyError = false;
-        sidebar.showFolder = false;
+        sidebar.showNewFolder = false;
         sidebar.newFolderName = "";
       }
 
@@ -68,7 +80,7 @@ angular
 
             }]
           };
-          sidebar.showFolder = false;
+          sidebar.showNewFolder = false;
           sidebar.folders.push(folder);
           emailService.addFolder(folder);
           sharedData.setFolders(sidebar.folders);
@@ -82,16 +94,14 @@ angular
           }
         }
         sidebar.newFolderName = "";
-
-      }
-
-      sidebar.removeFolder =function(folder) {
-        angular.forEach(sidebar.folders, function(value, key) {
-          if(folder === value.name)
-            sidebar.folders.splice(key, 1);
-        });
       }
       $scope.sidebar = sidebar;
+
+      function getFolders() {
+        emailService.getFolders().then(function(response) {
+          sidebar.folders = response.data.folders;
+       });
+      }
     },
   };
 });

@@ -33,6 +33,39 @@ class MessageController extends Controller
         }
 
     }
+
+    public function moveToAnotherFolder(Request $request) {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+        if ($user){
+            $emailId = $request->emailId;
+            $folderId = $request->selectedFolderId;
+            $message = Message::find($emailId);
+            $message->folder_id = $folderId;
+        } else{
+            return response()->json(["Status" => "No Content"],204);
+        }
+        if ($message->save()){
+            return response()->json(["Status" => "Cambios en mensaje guardados"],200);
+        }else{
+            return response()->json(["Status" => "Error al guardar los cambios en el mensaje"],500);
+        }
+    }
+
+    public function deleteEmail(Request $request) {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+        if ($user){
+            $emailId = $request->id;
+            $message = Message::find($emailId);
+            if($message->delete()){
+                return response()->json(["Status" => "Email eliminado"],200);
+            }else{
+                return response()->json(["Status" => "Error al eliminar email"],500);
+            }
+        }
+    }
+
     public function getFolderContent(Request $request) {
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
@@ -50,8 +83,11 @@ class MessageController extends Controller
                         $email['to'] = $recipient[0]->email;    
                         $email['from'] = $user->email; 
                         $email['subject'] = $message->msgSubject;
+                        $email['id'] = $message->id;
                         $email['body'] = $message->msgBody;
                         $email['date'] = $message->msgSenddate;
+                        $email['attachmentPath'] = $message->attachmentPath;
+
                         array_push($collection, $email);
                     }
                     return response()->json([
@@ -83,6 +119,7 @@ class MessageController extends Controller
             $newDate=date('Y-m-d H:i:s',$newDate);
             $email = json_decode($request->email);
             $userSentFolder = Folder::where('folderName','sent')->where('user_id',$id)->first();
+            $destination = null;
             foreach ($email->destinatarios_email as $key => $destino) {
                 $foldersToCopy = ['inbox','sent'];
 
@@ -108,16 +145,23 @@ class MessageController extends Controller
                         $message->folder_id = $userSentFolder->id;
                     }
                     
-                    $d = $request->file();
-                    dd(Storage::disk('local')->get('elpasajeroputo.png'));
-                    foreach ($d as $file) {
-                        $updFile = $file->move(storage_path('app\public\images'), $file->getClientOriginalName());
-                        $message->attachmentPath = $file->getRealPath();
+                    if ($folderKey == 0) {
+                        $d = $request->file();
+
+                        foreach ($d as $file) {
+                            $updFile = $file->move(storage_path('app\public\images'), $file->getClientOriginalName());
+                            $destination = storage_path('app\public\images').$file->getClientOriginalName();
+                        }
                     }
+
+                    if (isset($destination)) {
+                         $message->attachmentPath = $destination;
+                    }
+
                     $message->save();
                 }
+                return response()->json(['Status' => 'ok'], 200);
             }
-            return response()->json(['Status' => 'ok'], 200);
        }else{
             return response()->json(['Status' => 'Unauthorized'],401);
        }
@@ -130,7 +174,7 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    { 
         $message = Message::find($id);
         if ($message){
             return response()->json(['Status' => 'ok','data' => $message],200);

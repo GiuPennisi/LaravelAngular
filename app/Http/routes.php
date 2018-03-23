@@ -23,10 +23,13 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/home', 'HomeController@index');
     Route::post('/crearmensaje','MessageController@create');
     Route::post('/getemail','MessageController@viewMails');
+    Route::post('/deleteEmail','MessageController@deleteEmail');
     Route::post('/getFolderContent','MessageController@getFolderContent');
+    Route::post('/moveToAnotherFolder','MessageController@moveToAnotherFolder');
     Route::get('/folder','FolderController@index');
     Route::get('/getFolders','FolderController@getFolders');
     Route::post('/createfolder','FolderController@createfolder');
+    Route::post('/deleteFolder','FolderController@deleteFolder');
     Route::post('/signup','RegisterController@signup');
     Route::post('/countries','RegisterController@countries');
     Route::post('/provinces','RegisterController@provinces');

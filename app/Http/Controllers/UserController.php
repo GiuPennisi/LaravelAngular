@@ -108,7 +108,7 @@ class UserController extends Controller
             return response()->json(["Status" => "No Content"],204);
         }
         if ($user->save()){
-            return response()->json(["Status" => "Cambios en carpeta guardados"],200);
+            return response()->json(["Status" => "Cambios en usuario guardados"],200);
         }else{
             return response()->json(["Status" => "Error al guardar los cambios en el usuario"],500);
         }

@@ -19,4 +19,14 @@
   <div class="email-content">
     <span>{{personal.email.body}}</span>
   </div>
+  <div>
+    <button ng-click="personal.move()" type="button" class="btn btn-default" name="button">Move email</button>
+    <button ng-click="personal.deleteEmail()" type="button" class="btn btn-default" name="button">Delete email</button>
+  </div>
+  <div ng-if="personal.showMove">
+      <p class="mb10 mt10">Please select the folder where you want to move the email</p>
+      <select class="form-control mb10" ng-model="personal.selectedFolder" ng-options="folders.id as folders.folderName for folders in personal.folders">
+      </select> 
+      <button ng-click="personal.moveToAnotherFolder()" type="button" class="btn btn-default" name="button">Move!</button>
+  </div>
 </div>

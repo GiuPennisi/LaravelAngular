@@ -24,9 +24,11 @@ function emailService($log, $http, $auth) {
     return $http({ method: "POST", url: 'api/cities/', data: province, cache: false });
   }
 
-  function sendEmail(email,attachment) {
+  function sendEmail(email, attachment) {
     var fd = new FormData();
-    fd.append('attachment', attachment[0].lfFile);
+    if (attachment.length) {
+      fd.append('attachment', attachment[0].lfFile);
+    }
     fd.append('email',JSON.stringify(email));
     return $http({ method: "POST", url: 'api/crearmensaje/', withCredentials : false, headers : {'Content-Type' : undefined}, transformRequest : angular.identity, data: fd});
   }
@@ -51,8 +53,20 @@ function emailService($log, $http, $auth) {
     return $http({ method: "GET", url: 'api/getFolders', cache: false });
   }
 
+  function moveToAnotherFolder(selectedFolderId, emailId) {
+    return $http({ method: "POST", url: 'api/moveToAnotherFolder', data: {selectedFolderId, emailId}, cache: false });
+  }
+
   function register(userInfo) {
     return $http({ method: "POST", url: 'api/signup', data: userInfo, cache: false });
+  }
+
+  function deleteFolder(folderId) {
+    return $http({ method: "POST", url: 'api/deleteFolder', data: {id: folderId}, cache: false });
+  }
+  
+  function deleteEmail(emailId) {
+    return $http({ method: "POST", url: 'api/deleteEmail', data: {id: emailId}, cache: false });
   }
 
   const service = {
@@ -66,7 +80,10 @@ function emailService($log, $http, $auth) {
     getFolderContent,
     addFolder,
     getFolders,
+    moveToAnotherFolder,   
     register,
+    deleteFolder,
+    deleteEmail
   };
 
   return service;

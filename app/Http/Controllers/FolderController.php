@@ -8,8 +8,10 @@ use App\Http\Requests;
 use Auth;
 use App\User;
 use App\Folder;
+use App\Message;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
+
 class FolderController extends Controller
 {
     /**
@@ -49,6 +51,31 @@ class FolderController extends Controller
         }
     }
 
+    public function deleteFolder(Request $request)
+    {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+         if ($user){
+            $folderId = $request->id;
+            $folder = Folder::find($folderId);
+            $messages = Message::where('destinatario_id',$user->id)->where('folder_id', $folderId)->get();
+            foreach ($messages as $message){
+                $message->folder_id = 1;
+                if($message->save()){
+                
+                }else{
+                    return response()->json(["Status" => "Error al actualizar email"], 500);
+                }
+            }
+            if($folder->delete()){
+                return response()->json(["Status" => "Carpeta eliminada"], 200);
+            }else{
+                return response()->json(["Status" => "Error el eliminar la carpeta"], 500);
+            }
+        }else{
+            return response()->json(["Status" => "Unauthorized"],401);
+        }
+    }
 
      /**
      * Display the specified resource.

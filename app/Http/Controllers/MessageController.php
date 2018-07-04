@@ -73,15 +73,13 @@ class MessageController extends Controller
                 $collection = [];
                 $folderName = $request->folder;
                 $folder = Folder::where('folderName',$folderName)->where('user_id',$user->id)->get();
-                if($folderName !== 'Sent')
-                    $messages = Message::where('destinatario_id',$user->id)->where('folder_id',$folder[0]->id)->get();
-                else
-                    $messages = Message::where('user_id',$user->id)->where('folder_id',$folder[0]->id)->get();
+                $messages = Message::where('folder_id',$folder[0]->id)->get();
                 if ($messages){
                     foreach ($messages as $message){
-                        $recipient=User::where('id',$message->destinatario_id)->get();
-                        $email['to'] = $recipient[0]->email;    
-                        $email['from'] = $user->email; 
+                        $recipient=User::where('id',$message->destinatario_id)->get()->first();
+                        $sender=User::where('id',$message->user_id)->get()->first();
+                        $email['to'] = $recipient->email;    
+                        $email['from'] = $sender->email; 
                         $email['subject'] = $message->msgSubject;
                         $email['id'] = $message->id;
                         $email['body'] = $message->msgBody;
@@ -120,13 +118,10 @@ class MessageController extends Controller
             $email = json_decode($request->email);
             $userSentFolder = Folder::where('folderName','sent')->where('user_id',$id)->first();
             $destination = null;
-            foreach ($email->destinatarios_email as $key => $destino) {
+            foreach ($email->destinatarios_email as $destino) {
                 $foldersToCopy = ['inbox','sent'];
-
+                $destiny = User::where('email', $destino)->first();
                 foreach ($foldersToCopy as $folderKey => $folder) {
-
-                    $destiny = User::where('email',$destino)->first();
-                    
                     $message = new Message();
                     $message->msgSubject = $email->msgSubject;
                     $message->msgBody = $email->msgBody;
@@ -160,8 +155,8 @@ class MessageController extends Controller
 
                     $message->save();
                 }
-                return response()->json(['Status' => 'ok'], 200);
             }
+            return response()->json(['Status' => 'ok'], 200);
        }else{
             return response()->json(['Status' => 'Unauthorized'],401);
        }
